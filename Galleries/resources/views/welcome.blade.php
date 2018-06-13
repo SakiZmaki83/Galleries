@@ -1,1 +1,0 @@
-<h5>Welcome stranger</h5>

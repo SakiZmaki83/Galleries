@@ -13,10 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
+Route::post('/login', 'Auth\LoginController@authenticate');
+Route::post('/register', 'Auth\RegisterController@create');
 
-Route::middleware('api')->get('/galleries', 'GalleryController@index');
-Route::middleware('api')->get('/galleries/{id}', 'GalleryContorller@show');
+Route::middleware('jwt')->get('/galleries', 'GalleriesController@index');
+Route::middleware('jwt')->get('/galleries/{id}', 'GalleriesContorller@show');
+Route::middleware('jwt')->put('/galleries/{id}', 'GalleryController@update');
+Route::middleware('jwt')->get('/comments/{id}', 'CommentsController@show');
+Route::middleware('jwt')->post('/comments', 'CommentsController@store');
+Route::middleware('jwt')->delete('/comment/{id}', 'CommentController@destroy');

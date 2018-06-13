@@ -1,11 +1,18 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
- //   return $this->belongsTo('App\Gallery');
-
+    public $timestamps=false;
+    
+    protected $fillable = 
+    [
+        'image_url',
+    ];
+    
+    public function gallery()
+       {
+           return $this->belongsTo('App\Gallery','gallery_id','id');
+       }
 }

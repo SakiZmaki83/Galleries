@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comment;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class CommentsController extends Controller
 {
@@ -14,7 +16,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        //
+        return Comment::all();
     }
     /**
      * Show the form for creating a new resource.
@@ -33,13 +35,15 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        $coment = Comment::create([
-            	'content' => $request['content'],
+        
+        
+        $comment = Comment::create([
+            	'comment' => $request['comment'],
         	    'gallery_id' => $request['gallery_id'],
             	'user_id' => $request['user_id']
             		]);
             
-        return Comment::with('user')->where('id', $coment['id'])->first();
+        return Comment::with('user')->where('id', $comment['id'])->first();
     }
     /**
      * Display the specified resource.
@@ -49,7 +53,7 @@ class CommentsController extends Controller
      */
     public function show($id)
     {
-        return Comment::getSingleGalleryComments($id);
+        return Comment::find($id);
     }
     /**
      * Show the form for editing the specified resource.
@@ -80,9 +84,11 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        $contact = Comment::find($id);
-        		$contact->delete();
-        
-        		return Comment::all();
+        $comment = Comment::where('id', $id);
+        		$comment->delete();
+              //  return redirect()->route('dashboard')->with(['message'=> 'Successfully deleted!!']);
+
+            //	return Comment::all();
+           return new JsonResponse(true);
     }
 }

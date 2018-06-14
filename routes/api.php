@@ -21,8 +21,8 @@ Route::post('/login', 'Auth\LoginController@authenticate');
 Route::post('/register', 'Auth\RegisterController@create');
 
 Route::middleware('jwt')->get('/galleries', 'GalleriesController@index');
-Route::middleware('jwt')->get('/galleries/{id}', 'GalleriesContorller@show');
-Route::middleware('jwt')->put('/galleries/{id}', 'GalleryController@update');
+Route::middleware('jwt')->get('/galleries/{id}', 'GalleriesController@show');
+Route::middleware('jwt')->put('/galleries/{id}', 'GalleriesController@update');
 Route::middleware('jwt')->get('/comments/{id}', 'CommentsController@show');
 Route::middleware('jwt')->post('/comments', 'CommentsController@store');
-Route::middleware('jwt')->delete('/comment/{id}', 'CommentController@destroy');
+Route::middleware('jwt')->delete('/comments/{id}', 'CommentsController@destroy');

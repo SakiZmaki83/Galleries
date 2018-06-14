@@ -91,40 +91,11 @@ class GalleriesController extends Controller
     public function update(Request $request, $id)
     {
         $gallery = Gallery::find($id);
-
         $gallery->gallery_name = $request->input('gallery_name');
         $gallery->description = $request->input('description');
-        $gallery->images = $request->input('images');
-
-        $galleryRules = 
-        [
-            'gallery_name' => 'required|min:2|max:255',
-            'description' => 'max:1000',
-            'images' => 'required',
-            'images.*' => ['required', 'url', 'regex: /(?:(?:(?:\.jpg))|(?:(?:\.jpeg))|(?:(?:\.png)))/ '  ]
-            
-        ];
-
-        $galleryArr = 
-        [
-            'gallery_name' => $gallery->gallery_name,
-            'description' => $gallery->description,
-            'images' => $gallery->images
-        ];
-
-        $validator = Validator::make($galleryArr, $galleryRules);
-
-        if($validator->fails()) 
-        {
-            return response()->json(
-            [
-                'success'=>false, 
-                'error'=>$validator->messages()
-            ]);
-        }
+    
         $gallery->save();
-        $gallery->images()->delete();
-        $imagesArr = [];
+        return $gallery;
     }
     /**
      * Remove the specified resource from storage.

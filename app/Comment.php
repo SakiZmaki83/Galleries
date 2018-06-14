@@ -7,7 +7,7 @@ class Comment extends Model
 {
 	protected $fillable = 
 	[
-     	'content', 'gallery_id', 'user_id',
+     	'comment', 'gallery_id', 'user_id',
 	];
 	
 	public static function getSingleGalleryComments($id)

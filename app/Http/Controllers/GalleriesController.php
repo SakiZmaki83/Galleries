@@ -69,8 +69,8 @@ class GalleriesController extends Controller
      */
     public function show($id)
     {
-        return Gallery::getSingleGallery($id);
-    }
+        return Gallery::where('id', $id)->with('images', 'user')->first();  
+      }
     /**
      * Show the form for editing the specified resource.
      *
